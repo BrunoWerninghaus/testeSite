@@ -1,9 +1,9 @@
 <?php
 // Configurações do banco de dados
 $host = 'localhost';
-$usuario = 'root'; // Altere se necessário
-$senha = '';       // Altere se necessário
-$banco = 'romenno'; // Altere para o nome do seu banco
+$usuario = 'root'; 
+$senha = '';       
+$banco = 'romenno';
 
 // Criar conexão
 $conn = new mysqli(hostname: $host, username: $usuario, password: $senha, database: $banco);
@@ -13,13 +13,11 @@ if ($conn->connect_error) {
     die("Falha na conexão: " . $conn->connect_error);
 }
 
-// Receber dados do formulário (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $conn->real_escape_string($_POST['nome'] ?? '');
     $email = $conn->real_escape_string($_POST['email'] ?? '');
     $mensagem = $conn->real_escape_string($_POST['mensagem'] ?? '');
 
-    // Insere no banco (crie a tabela 'formulario' antes)
     $sql = "INSERT INTO formulario (nome, email, mensagem) VALUES ('$nome', '$email', '$mensagem')";
     if ($conn->query($sql) === TRUE) {
         $statusMsg = "Mensagem enviada com sucesso!";
